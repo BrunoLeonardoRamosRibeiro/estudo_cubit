@@ -17,7 +17,7 @@ class _UsuarioService {
     _usuarioStreamController.add(user);
   }
 
-  void updadeAge(int age) {
+  void updateAge(int age) {
     _usuario!.idade = age;
     _usuarioStreamController.add(_usuario!);
   }

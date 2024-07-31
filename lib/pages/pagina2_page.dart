@@ -35,7 +35,7 @@ class _Pagina2PageState extends State<Pagina2Page> {
               color: Colors.blue,
               onPressed: () {
                 //
-                usuarioService.updadeAge(47);
+                usuarioService.updateAge(47);
               },
               child: const Text('Trocar Idade', style: TextStyle(color: Colors.white)),
             ),
