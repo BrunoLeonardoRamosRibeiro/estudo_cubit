@@ -14,7 +14,11 @@ class _Pagina2PageState extends State<Pagina2Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Página 2 Page"),
+        title: StreamBuilder(
+            stream: usuarioService.usuarioStream,
+            builder: (context, snapshot) {
+              return snapshot.hasData ? Text("Nome: ${snapshot.data!.nome}") : const Text("Página 2 Page");
+            }),
       ),
       body: Center(
         child: Column(

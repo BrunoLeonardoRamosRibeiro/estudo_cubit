@@ -5,7 +5,7 @@ import 'package:appwithcubit/models/usuario.dart';
 class _UsuarioService {
   Usuario? _usuario;
 
-  final StreamController<Usuario> _usuarioStreamController = StreamController<Usuario>();
+  final StreamController<Usuario> _usuarioStreamController = StreamController<Usuario>.broadcast();
 
   Stream<Usuario> get usuarioStream => _usuarioStreamController.stream;
 
@@ -20,6 +20,10 @@ class _UsuarioService {
   void updateAge(int age) {
     _usuario!.idade = age;
     _usuarioStreamController.add(_usuario!);
+  }
+
+  dispose(){
+    _usuarioStreamController.close();
   }
 }
 
