@@ -14,8 +14,34 @@ class _Pagina2PageState extends State<Pagina2Page> {
       appBar: AppBar(
         title: const Text("Página 2 Page"),
       ),
-      body: const Center(
-        child: Text("Página 2"),
+      body: Center(
+        child: Column(
+          children: [
+            MaterialButton(
+              color: Colors.blue,
+              onPressed: () {
+                //
+              },
+              child: const Text('Criar Usuário', style: TextStyle(color: Colors.white)),
+            ),
+
+            MaterialButton(
+              color: Colors.blue,
+              onPressed: () {
+                //
+              },
+              child: const Text('Trocar Idade', style: TextStyle(color: Colors.white)),
+            ),
+
+            MaterialButton(
+              color: Colors.blue,
+              onPressed: () {
+                //
+              },
+              child: const Text('Adicionar Profissão', style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        ),
       ),
     );
   }
