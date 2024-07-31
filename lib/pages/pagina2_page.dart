@@ -16,6 +16,8 @@ class _Pagina2PageState extends State<Pagina2Page> {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             MaterialButton(
               color: Colors.blue,
