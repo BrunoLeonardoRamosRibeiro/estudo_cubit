@@ -1,8 +1,10 @@
+import 'package:appwithcubit/bloc/user/user_cubit.dart';
 import 'package:appwithcubit/pages/pagina1_page.dart';
 import 'package:appwithcubit/pages/pagina2_page.dart';
 import 'package:appwithcubit/services/usuario_service.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -13,12 +15,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => UsuarioService(),
-        ),
+        BlocProvider(create: (_) => UserCubit()),
       ],
+      // create: (context) => SubjectBloc(),
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
