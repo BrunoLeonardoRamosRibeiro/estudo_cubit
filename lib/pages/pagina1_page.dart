@@ -18,10 +18,22 @@ class _Pagina1PageState extends State<Pagina1Page> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Página 1 Page"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              // remover
+              // final usuarioService = Provider.of<UsuarioService>(context, listen: false);
+              usuarioService.delUser();
+            },
+            icon: const Icon(Icons.delete),
+          ),
+        ],
       ),
       body: usuarioService.userExists
-          ? UserInformation(
-              usuario: usuarioService.usuario!,
+          ? SingleChildScrollView(
+              child: UserInformation(
+                usuario: usuarioService.usuario,
+              ),
             )
           : const Center(child: Text('Usuário não existe!')),
       floatingActionButton: FloatingActionButton(
@@ -42,10 +54,7 @@ class UserInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      padding: const EdgeInsets.all(20.0),
+    return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -55,9 +64,16 @@ class UserInformation extends StatelessWidget {
           ListTile(title: Text('Idade: ${usuario.idade}')),
           const Text('Profissões', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const Divider(),
-          const ListTile(title: Text('Profissão 1: ')),
-          const ListTile(title: Text('Profissão 2: ')),
-          const ListTile(title: Text('Profissão 3: ')),
+          usuario.profissoes == null
+              ? Container()
+              : ListView.builder(
+                  itemCount: usuario.profissoes!.length,
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemBuilder: (_, index) => ListTile(
+                    title: Text(usuario.profissoes![index]),
+                  ),
+                ),
         ],
       ),
     );

@@ -12,4 +12,19 @@ class UsuarioService with ChangeNotifier {
     _usuario = value;
     notifyListeners();
   }
+
+  void updateAge(int age) {
+    _usuario!.idade = age;
+    notifyListeners();
+  }
+
+  void delUser() {
+    _usuario = null;
+    notifyListeners();
+  }
+
+  void addProfession(String value) {
+    _usuario!.profissoes!.add(value);
+    notifyListeners();
+  }
 }
