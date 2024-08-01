@@ -1,18 +1,20 @@
+import 'package:appwithcubit/models/usuario.dart';
+import 'package:appwithcubit/services/usuario_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Pagina2Page extends StatefulWidget {
+class Pagina2Page extends StatelessWidget {
   const Pagina2Page({super.key});
 
   @override
-  State<Pagina2Page> createState() => _Pagina2PageState();
-}
-
-class _Pagina2PageState extends State<Pagina2Page> {
-  @override
   Widget build(BuildContext context) {
+    final usuarioService = Provider.of<UsuarioService>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Página 2 Page"),
+        title: usuarioService.userExists
+            ? Text("Nome: ${usuarioService.usuario.nome}")
+            : Text("Página 2 Page"),
       ),
       body: Center(
         child: Column(
@@ -23,22 +25,26 @@ class _Pagina2PageState extends State<Pagina2Page> {
               color: Colors.blue,
               onPressed: () {
                 //
+                // final usuarioService = Provider.of<UsuarioService>(context, listen: false);
+                usuarioService.usuario = Usuario(nome: 'Bruno Leonardo', idade: 47);
               },
               child: const Text('Criar Usuário', style: TextStyle(color: Colors.white)),
             ),
-
             MaterialButton(
               color: Colors.blue,
               onPressed: () {
                 //
+                usuarioService.updateAge(40);
               },
               child: const Text('Trocar Idade', style: TextStyle(color: Colors.white)),
             ),
-
             MaterialButton(
               color: Colors.blue,
               onPressed: () {
                 //
+
+                usuarioService.addProfession("Dev Flutter");
+                usuarioService.addProfession("Dev Fullstack");
               },
               child: const Text('Adicionar Profissão', style: TextStyle(color: Colors.white)),
             ),
