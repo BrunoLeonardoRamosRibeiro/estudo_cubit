@@ -1,4 +1,7 @@
+import 'package:appwithcubit/models/usuario.dart';
+import 'package:appwithcubit/services/usuario_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Pagina2Page extends StatefulWidget {
   const Pagina2Page({super.key});
@@ -23,10 +26,12 @@ class _Pagina2PageState extends State<Pagina2Page> {
               color: Colors.blue,
               onPressed: () {
                 //
+                final usuarioService = Provider.of<UsuarioService>(context, listen: false);
+                usuarioService.usuario =
+                    Usuario(nome: 'Bruno Leonardo', idade: 47, profissoes: ['Dev']);
               },
               child: const Text('Criar Usuário', style: TextStyle(color: Colors.white)),
             ),
-
             MaterialButton(
               color: Colors.blue,
               onPressed: () {
@@ -34,7 +39,6 @@ class _Pagina2PageState extends State<Pagina2Page> {
               },
               child: const Text('Trocar Idade', style: TextStyle(color: Colors.white)),
             ),
-
             MaterialButton(
               color: Colors.blue,
               onPressed: () {
