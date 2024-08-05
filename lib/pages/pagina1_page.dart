@@ -1,4 +1,6 @@
 import 'package:appwithcubit/bloc/user/user_bloc.dart';
+import 'package:appwithcubit/core/utils.dart';
+import 'package:appwithcubit/models/usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,13 +17,19 @@ class _Pagina1PageState extends State<Pagina1Page> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Página 1 Page"),
+        actions: [
+          IconButton(onPressed: (){
+            //
+            userBloc.add(DeleteUser());
+          }, icon: const Icon(Icons.delete)),
+        ],
       ),
       body: BlocBuilder<UserBloc, UserState>(
         builder: (_, state) {
           return state.existUser
-              ? const UserInformation()
+              ? SingleChildScrollView(child: UserInformation(user: state.user!))
               : const Center(
-                  child: Text('Sem usuário seleionado!'),
+                  child: Text('Sem usuário selecionado!'),
                 );
         },
       ),
@@ -35,30 +43,32 @@ class _Pagina1PageState extends State<Pagina1Page> {
 }
 
 class UserInformation extends StatelessWidget {
+  final Usuario user;
   const UserInformation({
     super.key,
+    required this.user,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      padding: const EdgeInsets.all(20.0),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Geral', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          Divider(),
-          ListTile(title: Text('Nome: ')),
-          ListTile(title: Text('Idade: ')),
-          Text('Profissões', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          Divider(),
-          ListTile(title: Text('Profissão 1: ')),
-          ListTile(title: Text('Profissão 2: ')),
-          ListTile(title: Text('Profissão 3: ')),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Geral', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        const Divider(),
+        ListTile(title: Text('Nome:  ${user.nome}')),
+        ListTile(title: Text('Idade: ${user.idade}')),
+        const Text('Profissões', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        const Divider(),
+        ListView.builder(
+          itemCount: user.profissoes.length,
+          shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
+          itemBuilder: (_, index) => ListTile(
+            title: Text(user.profissoes![index]),
+          ),
+        ),
+      ],
     );
   }
 }
