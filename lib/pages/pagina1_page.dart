@@ -1,4 +1,6 @@
+import 'package:appwithcubit/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Pagina1Page extends StatefulWidget {
   const Pagina1Page({super.key});
@@ -14,7 +16,15 @@ class _Pagina1PageState extends State<Pagina1Page> {
       appBar: AppBar(
         title: const Text("Página 1 Page"),
       ),
-      body: const UserInformation(),
+      body: BlocBuilder<UserBloc, UserState>(
+        builder: (_, state) {
+          return state.existUser
+              ? const UserInformation()
+              : const Center(
+                  child: Text('Sem usuário seleionado!'),
+                );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.accessibility_new),
           onPressed: () {
