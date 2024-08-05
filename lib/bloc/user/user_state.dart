@@ -8,4 +8,6 @@ sealed class UserState {
   const UserState({this.existUser = false, this.user});
 }
 
-final class UserInitial extends UserState {}
+final class UserInitialState extends UserState {
+  const UserInitialState() : super(existUser: false, user: null);
+}
